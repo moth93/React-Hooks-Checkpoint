@@ -1,28 +1,18 @@
-import React, { useState } from 'react'
-import MovieCard from './MovieCard'
+import "./movielist.css";
+import MovieCard from "./MovieCard";
+import {Link} from "react-router-dom";
 
-function MovieList({movies,raTing,tiTle}) {
-    console.log(movies,raTing)
-    const [rat,setrat]=useState(0)
-  return (
-    <div>  
-        {
-       (raTing!=0||tiTle.length!=0)?   
-       movies.filter(e=>e.rating==raTing&&e.title.toLowerCase().includes(tiTle.toLowerCase()))
-       .map(elt=>
-       <MovieCard movie={elt} />):
-       movies.map(elt=>
-        <MovieCard movie={elt} />)
-    }
-
-
-
-
-
-
-
-    </div>
-  )
+function MovieList({list}){
+    return(
+        <div className="MovieList">{
+        list.map( (ele,index)=>(
+            <Link key={index} to={"/"+index} > 
+            <MovieCard key={index} ele={ele} />
+            </Link>
+        ))
+        }
+        </div>
+    );
 }
 
-export default MovieList
+export default MovieList;

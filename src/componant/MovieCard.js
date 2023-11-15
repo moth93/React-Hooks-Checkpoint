@@ -1,38 +1,20 @@
-import React from 'react'
-//import "./MovieCard.css"
-import { Card } from 'react-bootstrap'
-import { useState } from "react";
-import { Rating } from 'react-simple-star-rating';
-import ReactStars from 'react-stars';
 
+import "./moviecard.css";
 
-
-function MovieCard({movie}) {
-  const [star, setStar] = useState(0);
-
-  const onChange=(nextValue)=>{
-      setStar(nextValue)
-  }
-  return ( 
-    <div className="mainCard">  
-  <Card className="bg-dark text-white">
-   <Card.Img variant="top" src={movie.img} alt="card image" className="CardImage"/>
-   <Card.ImgOverlay>
-        <Card.Title className="">{movie.title}</Card.Title>
-        <Card.Text className="">
-        {movie.description}
-        </Card.Text>
-        <Card.Link href="#">{}</Card.Link>
-        <ReactStars
-  count={5}
-value={movie.rating}
-  size={24}
-  color2={'#ffd700'} />
-      </Card.ImgOverlay>
-      
-    </Card>
-    </div> 
-  )
+export default function MovieCard({ele}) {
+    return (
+        <div className="MovieCard">
+                <div>
+                    <div>
+                    <img width="300" src={ele.img} alt={ele.title} />
+                    </div>
+                    <div >
+                    <h2>{ele.title}</h2>
+                    <p>{ele.description}</p>
+                    <h3>Rate : {ele.rating}</h3>
+                    <h4>{ele.posterURL}</h4>
+                    </div>
+                </div>
+            </div>
+    )
 }
-
-export default MovieCard

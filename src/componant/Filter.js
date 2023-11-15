@@ -1,40 +1,36 @@
-import React, { useState } from 'react'
-import { Button, Container, Form, Nav, Navbar } from 'react-bootstrap'
-import AddMovie from './AddMovie'
+import "./filtring.css";
+import ReactStars from "react-rating-stars-component";
+import {useRef,useState} from "react";
 
-function Filter({setRat,setTitle}) {
+
+export default function Filtring({filter}) {
+    let searchRef = useRef();
+    const [rate, setRate] = useState(0);
     
-  return (
-    <div>
-        <AddMovie/>
-       <Navbar expand="lg" className="bg-body-tertiary">
-      <Container fluid>
-        <Navbar.Brand href="#">Movie filter</Navbar.Brand>
-        <Navbar.Toggle aria-controls="navbarScroll" />
-        <Navbar.Collapse id="navbarScroll">
-          <Form className="d-flex">
-            <Form.Control
-              type="number"
-             
-              className="me-2"
-              aria-label="Search"
-              onChange={(e)=>setRat(e.target.value)}
-            />
-            <Form.Control
-              type="search"
-              placeholder="Search"
-              className="me-2"
-              aria-label="Search"
-              onChange={(e)=>setTitle(e.target.value)}
-            />
-            <Button variant="outline-success">Search</Button>
-          </Form>
-        </Navbar.Collapse>
-      </Container>
-    </Navbar>
-   
-    </div>
-  )
-}
+    const ratingChanged = (newRating) => {
+         filter(searchRef.current.value,newRating);
+        setRate(newRating)
+    };
 
-export default Filter
+
+    function submitted(ev){
+        ev.preventDefault();
+        filter(searchRef.current.value,rate);
+    }
+
+
+    return (
+        <form className="searchform" onChange={submitted} onSubmit={submitted}>
+            
+            <input ref={searchRef} className="form-control form-control-lg searchinp" type="text" placeholder="Search for film..." aria-label=".form-control-lg example" width="400px"/>
+            
+
+            
+            <ReactStars count={5}
+                            onChange={ratingChanged}
+                            size={35}
+                            isHalf={true}
+                            activeColor="#ffd700"/>
+        </form>
+    )
+}
